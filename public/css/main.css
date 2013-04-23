@@ -1,0 +1,94 @@
+
+
+/* ==========================================================================
+   Author's custom styles
+   ========================================================================== */
+
+
+.brand {
+  position: relative;
+}
+
+.brand > img {
+  height: 31px;
+  position: absolute;
+  top: 8px;
+}
+
+.brand > span {
+  margin-left: 40px;
+  color: white;
+  line-height: 25px;
+}
+
+.navbar input, .navbar .input-append .add-on {
+    height: 15px;
+}
+
+.navbar .input-append {
+    margin-top: 9px;
+}
+
+.navbar .input-append .add-on i {
+    margin-top: -1px;
+}
+
+.toggle-sun, .toggle-shadow, .toggle-places {
+    background: url('../img/icon_switches.png') top left no-repeat;
+    width: 20px;
+    height: 20px;
+    padding: 0!important;
+    margin: 12px 0 0 15px;
+}
+.toggle-sun{ background-position:bottom left }
+.toggle-shadow { background-position: bottom center; }
+.toggle-places { background-position: bottom right; }
+
+.toggle-sun.active{ background-position: top left; }
+.toggle-shadow.active { background-position: top center; }
+.toggle-places.active { background-position: top right; }
+
+#map.masterhead {
+  margin:0;
+  height: 460px;
+}
+
+#map img {
+  max-width: none;
+}
+
+#sunrays {
+  position:absolute;
+  overflow: hidden;
+  top: 40px;
+  left: 0;
+  width:100%;
+  height:460px;
+}
+
+#sunrays > .sunray { width: 3px; height: 60px; position: absolute; background: white; z-index: 5; display: block; }
+#sunrays > .sunray.active { width: 5px; background: orange; height: 100px;}
+
+#search label {
+  color: white;
+  padding: 0 5px 0 0;
+}
+
+#timeslider {
+  top: -70px;
+  z-index: 10;
+  position: relative;
+    height: 50px;
+}
+
+#timeslider select {
+  display: none;
+}
+
+.ui-slider-label {
+  color: white;
+}
+
+.pac-container { z-index: 99999!important;}
+
+#loading { position:absolute; top: 250px; left: 50%; width: 200px; height: 50px; margin-left: -100px; background: transparent; text-align:  center;}
