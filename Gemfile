@@ -2,6 +2,7 @@ source "http://rubygems.org"
 
 gem 'rspec'
 gem 'thin'
+gem 'dalli'
 gem 'sinatra'
 gem 'typhoeus'
 gem 'multi_json'

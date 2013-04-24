@@ -1,5 +1,6 @@
 require 'sinatra'
 require 'typhoeus'
+require 'dalli'
 require 'multi_json'
 require 'json'
 require './lib/sinatra/json'
