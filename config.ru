@@ -10,8 +10,8 @@ require 'raster-shading-client'
 require File.expand_path '../sunnyside.rb', __FILE__
 
 # configure the solarinformationservice host
-SolarInformationClient::Config.host = 'http://solar-information-service.herokuapp.com'
-RasterShadingClient::Config.host = 'http://raster-shading-service.herokuapp.com'
+SolarInformationClient::Config.host = 'solar-information-service.herokuapp.com'
+RasterShadingClient::Config.host = 'raster-shading-service.herokuapp.com'
 
 # run app
 run SunnySide
