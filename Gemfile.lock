@@ -1,5 +1,5 @@
 GIT
-  remote: git@github.com:tailic/raster-shading-client.git
+  remote: git://github.com/tailic/raster-shading-client.git
   revision: 4acbcb07560c73d5c31ca50bbc437ae2d8af4ca4
   specs:
     raster-shading-client (0.0.0)
@@ -8,7 +8,7 @@ GIT
       yajl-ruby
 
 GIT
-  remote: git@github.com:tailic/solar-information-client.git
+  remote: git://github.com/tailic/solar-information-client.git
   revision: 6ce8ccae8d70be9fc234b223aafdd96b17082a12
   specs:
     solar-information-client (0.1.0)
