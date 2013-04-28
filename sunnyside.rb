@@ -1,6 +1,6 @@
 class SunnySide < Sinatra::Base
   helpers Sinatra::JSON
-  set :cache, Dalli::Client.new('localhost:11211', compress: true) 
+  set :cache, Dalli::Client.new(ENV["MEMCACHIER_SERVERS"].split(","), {username: ENV["MEMCACHIER_USERNAME"], password: ENV["MEMCACHIER_PASSWORD"], compress: true})
   set :connections, {}
   
   # the user interface
