@@ -43,6 +43,7 @@
 #map.masterhead {
   margin:0;
   height: 460px;
+  max-width: 1170px;
 }
 
 #map img { max-width: none; }
