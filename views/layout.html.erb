@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title></title>
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width">
+
+  <link rel="stylesheet" href="/css/bootstrap.min.css">
+  <style>
+      body {
+          padding-top: 40px;
+          padding-bottom: 40px;
+      }
+  </style>
+  <link rel="stylesheet" href="/css/bootstrap-responsive.min.css">
+  <link rel="stylesheet" href="/css/datepicker.css">
+  <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.2/themes/smoothness/jquery-ui.css">
+  <link rel="stylesheet" href="/css/ui.slider.extras.css">
+  <link rel="stylesheet" href="/css/main.css">
+
+  <script src="/js/vendor/modernizr-2.6.2-respond-1.1.0.min.js"></script>
+</head>
+<body>
+<!--[if lt IE 7]>
+<p class="chromeframe">Sie verwenden einen <strong>veralteten</strong> Browser. Bitte <a href="http://browsehappy.com/">aktualisieren Sie den Browser</a> oder <a href="http://www.google.com/chromeframe/?redirect=true">aktivieren Google Chrome Frame</a>.</p>
+<![endif]-->
+
+<!-- This code is taken from http://twitter.github.com/bootstrap/examples/hero.html -->
+
+<div class="navbar navbar-inverse navbar-fixed-top">
+  <div class="navbar-inner">
+    <div class="container">
+      <a class="brand" href="#"><img src="/img/sunnyside-logo.png"><span>SunnySide</span></a>
+
+        <ul class="nav pull-right">
+          <li><a class="toggle-sun hide-text active">Sun</a></li>
+          <li><a class="toggle-shadow hide-text active">Shadow</a></li>
+          <li><a class="toggle-places hide-text">Places</a></li>
+        </ul>
+
+      <form id="search" class="navbar-form  pull-right">
+        <div class="input-append">
+          <input id="inputDate" class="span2 datepicker" size="16" type="text" autocomplete="off" value="17.04.2013">
+          <span class="add-on"><i class="icon-th"></i></span>
+        </div>
+        <div class="input-append">
+          <input id="inputLocation" class="span4" type="text" placeholder="Ort Suchen">
+          <span class="add-on"><i class="icon-th"></i></span>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<div id="sunrays"></div>
+<div id="map" class="masterhead"></div>
+<div id="timeslider" class="container">
+  <select name="time" id="times"></select>
+</div>
+
+<div class="container">
+  <%= yield %>
+</div>
+<div class="container">
+  <hr>
+  <footer>
+    <p>&copy; Sonnenseite GbR 2013</p>
+  </footer>
+
+</div> <!-- /container -->
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script>window.jQuery || document.write('<script src="/js/vendor/jquery-1.9.1.min.js"><\/script>')</script>
+<script src="http://code.jquery.com/ui/1.10.2/jquery-ui.js"></script>
+
+<script src="/js/vendor/bootstrap.min.js"></script>
+<script src="/js/vendor/bootstrap-datepicker.js"></script>
+<script src="/js/vendor/jquery.geocomplete.js"></script>
+<script src="/js/vendor/moment.min.js"></script>
+<script src="/js/vendor/spin.min.js"></script>
+<script src="/js/vendor/jquery.spin.js"></script>
+<script src="/js/math.radians.js"></script>
+
+<script src="/js/jquery.rotate.js"></script>
+<script type="text/javascript" src="js/vendor/locales/bootstrap-datepicker.de.js" charset="UTF-8"></script>
+<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&libraries=places"></script>
+<script src="/js/solarposition.js"></script>
+<script src="/js/sunnyside.geocomplete.js"></script>
+<script src="/js/sunnyside.solaroverlay.js"></script>
+<script src="/js/sunnyside.shadowoverlay.js"></script>
+
+<script src="/js/main.js"></script>
+</body>
+</html>

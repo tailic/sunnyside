@@ -11,9 +11,11 @@ $(function() {
       map = gc.map_,
       notInitialized = true,
       minZoom = 17,
+      currentZoom = 17,
       shadowOverlays = {},
       hasMarkers = false,
-      showMarkers = false;
+      showMarkers = false,
+      apiURI = $('body').data('api-uri');
 
   $('.toggle-sun').click(function(){
     $(this).toggleClass('active');
@@ -30,7 +32,7 @@ $(function() {
       if(!hasMarkers) gc.showPlaces();
       $(this).toggleClass('active');
       $.each(gc.markersArray_, function(){
-        showMarkers ? this.setVisible(false) :  this.setVisible(true);
+        showMarkers ? this.setMap(false) :  this.setVisible(true);
       });
       showMarkers = !showMarkers;
       hasMarkers = true;
@@ -56,6 +58,20 @@ $(function() {
     getSolarpositions(date.hour(hour).format("YYYY-MM-DDTHH:mm:ssZ"));
   });
 
+  //gc.geo_.bind("geocode:multiple", function(event, results){
+  //  $.each(results, function(){
+  //    $("<li>").html(this.formatted_address).appendTo($("#multiple"));
+  //  });
+  //});
+
+  $("body").on("click", "#refreshshadows", function(event){
+    var date = moment(datepicker.val(), 'YY.MM.DD');
+    //solarTimeSelect.val()
+    var hour = moment().hour();
+    getSolarpositions(date.hour(hour).format("YYYY-MM-DDTHH:mm:ssZ"))
+    $(this).fadeOut();  
+  });
+
 
   var getSolarpositions = function(date){
       $('body').append('<div id="loading"></div>');
@@ -77,7 +93,7 @@ $(function() {
           minX = gc.map_.getBounds().getSouthWest().lng(),
           minY = gc.map_.getBounds().getSouthWest().lat();
 
-      var uri = "http://192.168.56.102:9494/api/v1/sunnyside?bbox="+minX+","+minY+","+maxX+","+maxY+"&datetime=" + encodeURIComponent(date);
+      var uri = apiURI + "?bbox="+minX+","+minY+","+maxX+","+maxY+"&datetime=" + encodeURIComponent(date);
       var es = new EventSource(uri);
 
       es.onmessage = function(e) {
@@ -93,7 +109,7 @@ $(function() {
       es.addEventListener('solarpositions', function(e) {
           var data = JSON.parse(e.data);
           drawSolarOverlay(data.solar_day.solarpositions);
-          $('#loading').remove();
+          //$('#loading').remove();
       }, false);
   }
 
@@ -111,7 +127,7 @@ $(function() {
             minX = gc.map_.getBounds().getSouthWest().lng(),
             minY = gc.map_.getBounds().getSouthWest().lat();
 
-        var uri = "http://192.168.56.102:9494/api/v1/sunnyside?bbox="+minX+","+minY+","+maxX+","+maxY+"&datetime=" + encodeURIComponent(date);
+        var uri = apiURI + "?bbox="+minX+","+minY+","+maxX+","+maxY+"&datetime=" + encodeURIComponent(date);
         var es = new EventSource(uri);
 
         es.addEventListener('shadows', function(e) {
@@ -155,12 +171,21 @@ $(function() {
   }
 
 
-    solarTimeSelect.change(function() {
-        var date = moment(datepicker.val(), 'YY.MM.DD');
-        var hour = $(this).val();
-        getShadow(date.hour(hour).format("YYYY-MM-DDTHH:mm:ssZ"));
-    });
+  solarTimeSelect.change(function() {
+      var date = moment(datepicker.val(), 'YY.MM.DD');
+      var hour = $(this).val();
+      getShadow(date.hour(hour).format("YYYY-MM-DDTHH:mm:ssZ"));
+  });
 
+  var showRefresher = function() {
+    var refresher = $("#refreshshadows");
+    if(refresher.length > 0) {
+      refresher.fadeIn(); 
+    } else {
+      $('#map').append('<div id="refreshshadows"><button class="btn btn-inverse" type="button"><i class="icon-refresh icon-white"></i> Schatten berechnen</button></div>');
+      refresher.hide().fadeIn()
+    }
+  }
 
 // Google Maps Event Listeners
   google.maps.event.addListener(map, 'bounds_changed', function() {
@@ -170,11 +195,12 @@ $(function() {
   });
 
   google.maps.event.addListener(map, 'dragstart', function() {
-
   });
 
   google.maps.event.addListener(map, 'dragend', function() {
     gc.checkBounds(map.getCenter());
+    showRefresher();
+    if (showMarkers) gc.showPlaces();
   });
 
   google.maps.event.addListener(map, 'resize', function() {
@@ -183,6 +209,11 @@ $(function() {
 
   google.maps.event.addListener(map, 'zoom_changed', function() {
     if (map.getZoom() < minZoom) map.setZoom(minZoom);
+    if (map.getZoom() < currentZoom) {
+      showRefresher();
+      gc.showPlaces();
+    }
+    currentZoom = map.getZoom();
   });
 
 

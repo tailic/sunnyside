@@ -51,6 +51,7 @@ Geocomplete.prototype.checkBounds = function() {
 }
 
 Geocomplete.prototype.showPlaces = function() {
+  var infowindow = this.infowindow_;
   var request = {
       bounds: this.mapBounds_,
       rankBy: google.maps.places.RankBy.PROMINENCE, 

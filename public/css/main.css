@@ -5,9 +5,7 @@
    ========================================================================== */
 
 
-.brand {
-  position: relative;
-}
+.brand { position: relative; }
 
 .brand > img {
   height: 31px;
@@ -21,17 +19,11 @@
   line-height: 25px;
 }
 
-.navbar input, .navbar .input-append .add-on {
-    height: 15px;
-}
+.navbar input, .navbar .input-append .add-on { height: 15px; }
 
-.navbar .input-append {
-    margin-top: 9px;
-}
+.navbar .input-append { margin-top: 9px; }
 
-.navbar .input-append .add-on i {
-    margin-top: -1px;
-}
+.navbar .input-append .add-on i { margin-top: -1px; }
 
 .toggle-sun, .toggle-shadow, .toggle-places {
     background: url('../img/icon_switches.png') top left no-repeat;
@@ -53,9 +45,7 @@
   height: 460px;
 }
 
-#map img {
-  max-width: none;
-}
+#map img { max-width: none; }
 
 #sunrays {
   position:absolute;
@@ -66,7 +56,7 @@
   height:460px;
 }
 
-#sunrays > .sunray { width: 3px; height: 60px; position: absolute; background: white; z-index: 5; display: block; }
+#sunrays > .sunray { width: 3px; height: 60px; position: absolute; background: rgba(255,255,255,0.6); z-index: 5; display: block; }
 #sunrays > .sunray.active { width: 5px; background: orange; height: 100px;}
 
 #search label {
@@ -81,14 +71,27 @@
     height: 50px;
 }
 
-#timeslider select {
-  display: none;
-}
+#timeslider select { display: none; }
 
-.ui-slider-label {
-  color: white;
-}
+.ui-slider-label { color: white; }
 
 .pac-container { z-index: 99999!important;}
 
-#loading { position:absolute; top: 250px; left: 50%; width: 200px; height: 50px; margin-left: -100px; background: transparent; text-align:  center;}
+#loading { 
+  position:absolute; 
+  top: 250px; 
+  left: 50%; 
+  width: 200px; 
+  height: 50px; 
+  margin-left: -100px; 
+  background: transparent; 
+  text-align:  center;
+}
+
+#refreshshadows {
+  position:absolute;
+  z-index:999; 
+  left:50%;
+  top:20px;
+  margin-left:-100px;
+}

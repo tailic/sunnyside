@@ -9,12 +9,9 @@ require 'raster-shading-client'
 
 require File.expand_path '../sunnyside.rb', __FILE__
 
-set :server, :thin
-use Rack::Deflater
-
 # configure the solarinformationservice host
-SolarInformationClient::Config.host = '192.168.56.102:9393'
-RasterShadingClient::Config.host = '192.168.56.102:9292'
+SolarInformationClient::Config.host = '192.168.56.101:9393'
+RasterShadingClient::Config.host = '192.168.56.101:9292'
 
 # run app
 run SunnySide

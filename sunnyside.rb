@@ -1,12 +1,12 @@
-CACHE = Dalli::Client.new('localhost:11211', compress: true)
-
 class SunnySide < Sinatra::Base
   helpers Sinatra::JSON
-  connections = {}
+  set :cache, Dalli::Client.new('localhost:11211', compress: true) 
+  set :connections, {}
   
   # the user interface
-  
   get '/' do
+    puts 
+    @api_uri = "http://#{request.env['HTTP_HOST']}/api/v1/sunnyside"
     erb :index
   end
   
@@ -14,15 +14,15 @@ class SunnySide < Sinatra::Base
   post '/shader-callback/:token' do
     req_id = params[:token]
     response = request.body.read
-    waiters = connections[req_id]
+    waiters = settings.connections[req_id]
     halt 202 if waiters.nil? 
     waiters.each do |out|
       out << "event: shadows\ndata: #{response}\n\n"
       out.close
-      CACHE.set(req_id, response)
-      connections[req_id].delete(out)
+      settings.cache.set(req_id, response)
+      settings.connections[req_id].delete(out)
     end
-    connections.delete(req_id) if connections[req_id].empty?
+    settings.connections.delete(req_id) if settings.connections[req_id].empty?
   end
   
   # returns solarpositions for given day and enqueue raster shading job
@@ -41,10 +41,10 @@ class SunnySide < Sinatra::Base
 
       # Call raster-shading service
       current = solar_day.current_position
-      shadow_map = CACHE.get(shadow_map_id(bounding_box, current.azimuth, current.zenith))
+      shadow_map = settings.cache.get(shadow_map_id(bounding_box, current.azimuth, current.zenith))
       if shadow_map.nil?
         callback_id = RasterShadingClient::ShadowMap.get_shadow_map(current.azimuth, current.zenith, bounding_box, datetime)
-        connections.has_key?(callback_id) ? connections[callback_id] << out : connections[callback_id] = [] << out
+        settings.connections.has_key?(callback_id) ? settings.connections[callback_id] << out : settings.connections[callback_id] = [] << out
       else
         out << "event: shadows\ndata: #{shadow_map}\n\n"
         out.close
