@@ -1,11 +1,23 @@
 class SunnySide < Sinatra::Base
   helpers Sinatra::JSON
-  set :cache, Dalli::Client.new(ENV["MEMCACHIER_SERVERS"].split(","), {username: ENV["MEMCACHIER_USERNAME"], password: ENV["MEMCACHIER_PASSWORD"], compress: true})
+  register Sinatra::ConfigFile
+  config_file 'config/config.yml'
+
+  # Cache Client Connection
+  cache_server = ENV['MEMCACHIER_SERVERS'] || settings.cache
+  set :cache, Dalli::Client.new(
+      cache_server .split(','),
+      {
+          username: ENV['MEMCACHIER_USERNAME'] || '',
+          password: ENV['MEMCACHIER_PASSWORD'] || '',
+          compress: true
+      }
+  )
+
   set :connections, {}
   
   # the user interface
   get '/' do
-    puts 
     @api_uri = "http://#{request.env['HTTP_HOST']}/api/v1/sunnyside"
     erb :index
   end

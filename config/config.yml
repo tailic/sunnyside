@@ -1,0 +1,8 @@
+development:
+  solar_service_host: '192.168.56.101:9393'
+  shading_service_host: '192.168.56.101:9292'
+  cache: 'localhost:11211'
+
+production:
+  solar_service_host: '192.168.56.101:9393'
+  shading_service_host: '192.168.56.101:9292'
