@@ -9,6 +9,11 @@ require './lib/sinatra/json'
 require 'solar-information-client'
 require 'raster-shading-client'
 
+# newrelic monitoring (newrelic.com)
+configure :production do
+  require 'newrelic_rpm'
+end
+
 config = YAML.load_file('config/config.yml')
 SolarInformationClient::Config.host = ENV['SOLAR_SERVICE_HOST'] || config['development']['solar_service_host']
 RasterShadingClient::Config.host = ENV['SHADING_SERVICE_HOST'] || config['development']['shading_service_host']
