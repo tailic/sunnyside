@@ -52,7 +52,7 @@ class SunnySide < Sinatra::Base
       out << "event: solarpositions\ndata: #{json(solar_day)}\n\n"
 
       # Call raster-shading service
-      current = solar_day.current_position
+      current = solar_day.current_position(datetime)
       shadow_map = settings.cache.get(shadow_map_id(bounding_box, current.azimuth, current.zenith))
       if shadow_map.nil?
         callback_id = RasterShadingClient::ShadowMap.get_shadow_map(current.azimuth, current.zenith, bounding_box, datetime)

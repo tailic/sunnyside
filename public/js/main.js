@@ -108,7 +108,7 @@ $(function() {
 
       es.addEventListener('solarpositions', function(e) {
           var data = JSON.parse(e.data);
-          drawSolarOverlay(data.solar_day.solarpositions);
+          drawSolarOverlay(data.solarpositions);
           //$('#loading').remove();
       }, false);
   }

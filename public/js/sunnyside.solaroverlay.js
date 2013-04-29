@@ -21,7 +21,6 @@ function SolarOverlay(raysContainer, solarpositions, timeSelect) {
   var currHour = currDate.getHours();
   var hour = currMin > 30 ? currHour + 1 : currHour;
   jQuery.each(this.solarpositions_, function(index, position){
-    var position = position.solar_position;
     var active = position.hour === hour ? "active" : "";
     var time = position.hour
       $('<div/>', {

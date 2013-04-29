@@ -9,7 +9,7 @@ GIT
 
 GIT
   remote: git://github.com/tailic/solar-information-client.git
-  revision: 6ce8ccae8d70be9fc234b223aafdd96b17082a12
+  revision: 79dc8efb8adfb18c2c900673bf99f367b436b52d
   specs:
     solar-information-client (0.1.0)
       activerecord
