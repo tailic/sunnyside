@@ -27,7 +27,7 @@ class SunnySide < Sinatra::Base
     req_id = params[:token]
     response = request.body.read
     waiters = settings.connections[req_id]
-    halt 202 if waiters.nil? 
+    halt 202 if waiters.nil?
     waiters.each do |out|
       out << "event: shadows\ndata: #{response}\n\n"
       out.close
@@ -46,7 +46,9 @@ class SunnySide < Sinatra::Base
       bounding_box = params[:bbox]
       datetime = params[:datetime]
       bbox_array = bounding_box.split(',')
-    
+
+      out.callback { settings.connections.delete(out) }
+
       # get solar positions for the day
       solar_day = SolarInformationClient::SolarDay.get_solar_day(bbox_array[1], bbox_array[0], datetime)
       if solar_day.status == 'OK'

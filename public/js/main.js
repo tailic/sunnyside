@@ -97,7 +97,6 @@ $(function () {
         };
         es.addEventListener('error', function (e) {
             var data = JSON.parse(e.data);
-            console.log(data);
             $("#alert").html('<div class="alert">' +
                 '<a class="close" data-dismiss="alert">×</a>' +
                 '<h4>Oh snap!</h4><p>'+errorMessages[data.status]+'</p>' +
