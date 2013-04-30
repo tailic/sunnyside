@@ -50,27 +50,37 @@ class SunnySide < Sinatra::Base
       # get solar positions for the day
       solar_day = SolarInformationClient::SolarDay.get_solar_day(bbox_array[1], bbox_array[0], datetime)
       if solar_day.status == 'OK'
+        # send solarpositions event with results to the stream
         out << "event: solarpositions\ndata: #{json(solar_day)}\n\n"
-        current = solar_day.current_position(datetime)
-        shadow_map = settings.cache.get(shadow_map_id(bounding_box, current.azimuth, current.zenith))
+        # get solarposition based on requested time
+        current_position = solar_day.current_position(datetime)
+        # try to get ShadowMap from Cache
+        shadow_map = settings.cache.get(shadow_map_id(bounding_box, current_position.azimuth, current_position.zenith))
         if shadow_map.nil?
-          shadow_map = RasterShadingClient::ShadowMap.get_shadow_map(current.azimuth, current.zenith, bounding_box, datetime)
+          # ShadowMap was not in Cache tell the cilent to get it
+          shadow_map = RasterShadingClient::ShadowMap.get_shadow_map(current_position.azimuth, current_position.zenith, bounding_box, datetime)
+          # Accepted means the job was enqued at raster shading service and we keep the stream open until response is back
           if shadow_map.status == 'ACCEPTED'
             settings.connections.has_key?(shadow_map.callback_id) ? settings.connections[shadow_map.callback_id] << out : settings.connections[shadow_map.callback_id] = [] << out
           else
-            out << "event: error\ndata: #{json(status: shadow_map.status, errors:shadow_map.errors)}\n\n"
-            out.close
+            error_and_close(shadow_map, out)
           end
+        # ShadowMap was in Cache send it to the stream and close
         else
           out << "event: shadows\ndata: #{shadow_map}\n\n"
           out.close
         end
+      # SolarDay has errors notify the client and close stream
       else
-        out << "event: error\ndata: #{json(status: solar_day.status, errors:solar_day.errors)}\n\n"
-        out.close
+        error_and_close(solar_day, out)
       end
 
     end
+  end
+
+  def error_and_close(client, connection)
+    connection << "event: error\ndata: #{json(status: client.status, errors: client.errors)}\n\n"
+    connection.close
   end
 
   def shadow_map_id(bbox, azimuth, zenith)

@@ -60,13 +60,19 @@ $(function () {
     });
 
     //
-    $("#map").on("click", "#refreshshadows", function (event) {
+    $("#map").on("click", "#refreshshadows, #alert .btn.retry", function (event) {
         var date = moment(datepicker.val(), 'DD.MM.YYYY');
         //var hour = moment().hour();
         var hour = solarTimeSelect.val();
         date = date.hour(hour).format("YYYY-MM-DDTHH:mm:ssZ")
         getSolarpositions(date);
         $(this).fadeOut();
+    });
+
+    //
+    $("body").on("click", "#alert .btn.retry", function (event) {
+        getSolarpositions(moment().format("YYYY-MM-DDTHH:mm:ssZ"));
+        $("#alert .alert").alert('close');
     });
 
     //
@@ -95,7 +101,7 @@ $(function () {
             $("#alert").html('<div class="alert">' +
                 '<a class="close" data-dismiss="alert">×</a>' +
                 '<h4>Oh snap!</h4><p>'+errorMessages[data.status]+'</p>' +
-                '<p><a href="#" class="btn btn-success">Nochmal versuchen!</a></p>' +
+                '<p><a href="#" class="btn btn-success retry">Nochmal versuchen!</a></p>' +
                 '</div>')
             es.close();
         }, false);
