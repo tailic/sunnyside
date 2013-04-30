@@ -29,7 +29,7 @@ Geocomplete.prototype.initPlugin = function (mapSearchField, mapContainer) {
             mapTypeId: "satellite"
         },
         country: 'de',
-        types: ["geocode", "amusement_park", "park", "food", "bar", "restaurant", "cafe", "stadium", "cemetery", "university", "zoo"]
+        types: ["geocode"]
     });
 }
 
