@@ -1,6 +1,6 @@
 GIT
   remote: git://github.com/tailic/raster-shading-client.git
-  revision: 4acbcb07560c73d5c31ca50bbc437ae2d8af4ca4
+  revision: bcb7f40b3c4691f276c16ccf99277dcbc6568060
   specs:
     raster-shading-client (0.0.0)
       activerecord
@@ -9,7 +9,7 @@ GIT
 
 GIT
   remote: git://github.com/tailic/solar-information-client.git
-  revision: 79dc8efb8adfb18c2c900673bf99f367b436b52d
+  revision: e6246423940424abf02b8c02abb934713a3d455d
   specs:
     solar-information-client (0.1.0)
       activerecord
@@ -44,7 +44,7 @@ GEM
     i18n (0.6.1)
     mime-types (1.23)
     multi_json (1.7.2)
-    newrelic_rpm (3.6.1.87)
+    newrelic_rpm (3.6.1.88)
     rack (1.5.2)
     rack-protection (1.5.0)
       rack

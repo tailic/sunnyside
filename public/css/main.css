@@ -40,10 +40,19 @@
 .toggle-shadow.active { background-position: top center; }
 .toggle-places.active { background-position: top right; }
 
-#map.masterhead {
+.container.masterhead { margin-top: 45px; }
+
+#alert {
+    position: absolute;
+    z-index: 999;
+    left: 50%;
+    width: 400px;
+    margin: 25px 0 0 -200px;
+}
+
+#map {
   margin:0;
   height: 460px;
-  max-width: 1400px;
 }
 
 #map img { max-width: none; }
